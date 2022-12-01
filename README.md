@@ -12,7 +12,7 @@
   "start": "set NODE_OPTIONS=–-openssl-legacy-provider & node scripts/start.js"
 }
 ```
-2. 添加系统的环境变量。 <br>
+2. 添加操作系统的环境变量。 <br>
 `NODE_OPTIONS : -–openssl-legacy-provider`
 
 
