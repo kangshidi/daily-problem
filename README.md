@@ -15,4 +15,9 @@
 2. 添加操作系统的环境变量。 <br>
 `NODE_OPTIONS : -–openssl-legacy-provider`
 
-
+### 2. 可以通过css中的`content`属性修改`<img>`标签中的src属性。
+```css
+img {
+  content: url('./images/empty.png');
+}
+```
