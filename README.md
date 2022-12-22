@@ -21,3 +21,9 @@ img {
   content: url('./images/empty.png');
 }
 ```
+
+### 3. js中媒体查询。
+```javascript
+// 返回值为MediaQueryList对象。包含matches属性（boolean），以及media属性（string）。
+const mqList = window.matchMedia('(max-width: 1920px)');
+```
