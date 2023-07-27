@@ -1,4 +1,4 @@
-![1690427234672](https://github.com/kangshidi/daily-problem/assets/10253051/cfe83509-8a0a-412e-80fd-58cec549f745)# 日常问题
+# 日常问题
 
 ### 1. 老项目yarn install成功之后，yarn start报错，可能是因为node版本有问题。
 ![yarn start错误](/images/node_error.png "")
