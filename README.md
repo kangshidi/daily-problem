@@ -43,7 +43,7 @@ const mqList = window.matchMedia('(max-width: 1920px)');
 1. float的值不是none。
 2. position的值不是static和relative。
 3. display的值是inline-block、flex或者inline-flex。
-4. overflow：hidden。
+4. overflow：hidden。 <br>
 BFC的其他作用：
 1. 取消盒子的margin塌陷。
 2. 阻止元素被浮动元素覆盖。
