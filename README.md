@@ -36,17 +36,95 @@ const mqList = window.matchMedia('(max-width: 1920px)');
 ![1690427234672](https://github.com/kangshidi/daily-problem/assets/10253051/79b31df9-79cc-401f-a152-a4dad0fb5138)
 
 ### 5. BFC
-块级格式化上下文，它指的是一个独立的块级渲染区域，只有Block-level box参与。该区域拥有一条渲染规则来约束块级盒子的布局，且与区域外部无关。  
-现象：  
-一个盒子不设置height，当内容子元素都浮动时，无法撑起自身，这个盒子没有形成BFC。  
-如何创建BFC：  
+块级格式化上下文，它指的是一个独立的块级渲染区域，只有Block-level box参与。该区域拥有一条渲染规则来约束块级盒子的布局，且与区域外部无关。
+如何创建BFC：
 1. float的值不是none。
 2. position的值不是static和relative。
-3. display的值是inline-block、flex或者inline-flex。
-4. overflow：hidden。     <br> <br>
-BFC的其他作用：
-1. 取消盒子的margin塌陷。
-2. 阻止元素被浮动元素覆盖。
+3. display的值是inline-block、table-cell、flex或者inline-flex。
+4. overflow的值不是visible。
+开启BFC的作用：
+1. 开启BFC的元素不会被浮动元素覆盖。
+2. 取消盒子的margin塌陷（父子外边距不会合并）。
+3. 开启BFC的元素可以包含浮动的子元素（解决浮动高度塌陷）。
+
+### 6. CSS哪些属性能继承？
+1. color
+2. font-开头的
+3. text-开头的
+4. line-开头的
+5. list-开头的
+
+### 7. 消除图片底部间隙的方法
+1. 图片块状化 - 无基线对齐： img {display: block;}
+2. 图片底线对齐： img {vertical-align: bottom;}
+3. 父级设置font-size: 0;
+4. 行高足够小 - 基线位置上移： .father {line-height: 0}
+
+### 8. CSS中的渐进增强，优雅降级之间的区别
+1. 渐进增强（从下往上）：针对低版本的浏览器进行构建页面，保证最基本的功能，然后再针对高版本的浏览器进行效果、交互等改进和追加功能，达到更好的用户体验。
+2. 优雅降级（从上往下）：一开始就构建完整的功能，然后再针对低版本的浏览器进行兼容。
+
+### 9. 防抖
+```javascript
+function debounce(delay) {
+  let timer;
+  return function (value) {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      console.log(value);
+    }, delay);
+  }
+}
+
+const input = document.querySelector('#input');
+const debounceFunc = debounce(500);
+input.addEventListener('keyup', function(e) {
+  debounceFunc(e.target.value);
+});
+```
+
+### 10. 节流
+```javascript
+function throttle(delay) {
+  let timer;
+  return function (value) {
+    if (timer) {
+      return;
+    }
+    timer = setTimeout(function() {
+      console.log(value);
+      timer = null;
+    }, delay);
+  }
+}
+const throttleFunc = throttle(500);
+window.addEventListener('resize', function(e) {
+  throttleFunc(document.documentElement.clientHeight);
+});
+```
+
+### 11. 手动实现call方法
+```javascript
+Function.prototype.myCall = function (context) {
+  const args = [...arguments].splice(1);
+  context.foo = this;
+  const result = context.foo(...args);
+  delete context.foo;
+  return result;
+};
+
+const user = {
+  name: 'xxx'
+};
+function bar (value1, value2) {
+  console.log(this.name, value1, value2);
+}
+bar.myCall(user, 1, 2);
+```
+
+
+
+
 
 
 
