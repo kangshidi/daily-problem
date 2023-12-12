@@ -149,6 +149,9 @@ false && 'xxx'
 
 ### 15. 解决iOS手机端底部小黑线遮挡的问题。
 ```javascript
+// html中需要设置viewport-fit=cover
+<meta name="viewport" content="... viewport-fit=cover" />
+// CSS
 padding-bottom: env(safe-area-inset-bottom);
 ```
 
