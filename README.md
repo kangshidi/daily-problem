@@ -147,6 +147,10 @@ false && 'xxx'
 // 页面什么都不展示
 ```
 
+### 15. 解决iOS手机端底部小黑线遮挡的问题。
+```javascript
+padding-bottom: env(safe-area-inset-bottom);
+```
 
 
 
