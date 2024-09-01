@@ -155,6 +155,11 @@ false && 'xxx'
 padding-bottom: env(safe-area-inset-bottom);
 ```
 
+### 16. 解决项目中组件被重复挂载的问题。
+描述：业务组件中，虽然useEffect监听的是[]空数组，但useEffect包裹的代码却被执行了多次（导致同样入参的接口被执行了多次），也就是说业务组件被重复挂载了多次。
+原因：生成Route的组件中存在useState，或者其父组件存在render行为，导致该组件被更新（render），所以Route组件指定的component或者Route组件的指定的render函数被重新执行，导致业务组件被重复挂载。
+解决方案：生成Route的组件中，缓存Route组件指定的component或者render函数。本项目中指定的是render函数（使用useCallback缓存）。
+![Uploading image.png…]()
 
 
 
