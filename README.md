@@ -159,7 +159,52 @@ padding-bottom: env(safe-area-inset-bottom);
 描述：业务组件中，虽然useEffect监听的是[]空数组，但useEffect包裹的代码却被执行了多次（导致同样入参的接口被执行了多次），也就是说业务组件被重复挂载了多次。<br/>
 原因：生成Route的组件中存在useState，或者其父组件存在render行为，导致该组件被更新（render），所以Route组件指定的component或者Route组件的指定的render函数被重新执行，导致业务组件被重复挂载。<br/>
 解决方案：生成Route的组件中，缓存Route组件指定的component或者render函数。本项目中指定的是render函数（使用useCallback缓存）。<br/>
-![Uploading image.png…]()
+```javascript
+// 缓存render函数
+const pureRender = useCallback((props) => (
+  <routeObj.component {...props} />
+), []);
+return (
+  <Route
+    path={path}
+    render={pureRender}
+  />
+);
+```
+
+### 17. 解决项目中浏览器地址栏url查询参数发生变化，但哈希路由没有发生变化时，组件没有响应变化的问题。
+该问题是由No16的修改方法不恰当而导致的。<br />
+原因：由于Route组件指定的render函数被useCallback缓存住了，而useCallback监听是空数组，所以不管url是否发生变化，都不会重新挂载路由组件。<br />
+这样做其实没有问题，因为Route组件会自动给路由组件传参：location，history和match。url发生变化，也就是说location参数发生了变化，也就是说路由组件的入参发生了变化，路由组件虽然不会重新挂载，但是会执行update。如果路由组件中存在监听url查询参数的逻辑，就会执行相应的操作。<br />
+但是项目中的大部分组件都没有做监听url参数的处理逻辑，导致url中的查询参数发生了变化（一般是code或者id），业务组件都没有感知到（重新下发接口）。
+由于修改量太大，所以考虑回避方案：当url中查询参数发生变化，而哈希路由并没有发生变化时，也需要重新挂载组件。<br />
+解决方案：<br />
+在生成Route的组件中做修改，useCallback监听location或者location中的查询参数search（更精准）的变化，如果location或者search发生变化了，就重新生成render函数，Route组件监听到入参render发生了变化，会重新执行render函数，从而得到一个新的component（路由组件被重新挂载）。
+```javascript
+import loadable from '@loadable/component';
+// Switch组件会自动给其children组件传参location。
+// 当url中的哈希路由发生变化时，Switch组件会自动挂载对应的children组件。
+// 但是url中哈希路由没有发生变化，只是查询参数发生变化时，Switch不会重新挂载children组件，只会更新location参数。
+const { location: { search } } = props;
+// routeObj.component是通过loadable函数动态加载的。
+const routeObj = {
+  component: loadable('./xxx.js');
+};
+// props一定要透传给路由组件，这样Route组件才可以自动给路由组件传参（location，history和match）
+const pureRender = useCallback((props) => (
+  <routeObj.component {...props} />
+), [search]);
+
+return (
+  <Route
+    path={path}
+    render={pureRender}
+  />
+);
+```
+
+
+
 
 
 
