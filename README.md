@@ -163,7 +163,7 @@ padding-bottom: env(safe-area-inset-bottom);
 // 缓存render函数
 const pureRender = useCallback((props) => (
   <routeObj.component {...props} />
-), []);
+), []); // 在项目中导致了其他的问题，非最终解决方案。
 return (
   <Route
     path={path}
