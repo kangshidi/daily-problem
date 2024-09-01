@@ -193,7 +193,7 @@ const routeObj = {
 // props一定要透传给路由组件，这样Route组件才可以自动给路由组件传参（location，history和match）
 const pureRender = useCallback((props) => (
   <routeObj.component {...props} />
-), [search]);
+), [search]); // 监听查询参数，重新生成render函数，返回新的路由组件，也就是重新挂载路由组件
 
 return (
   <Route
