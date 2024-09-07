@@ -203,6 +203,65 @@ return (
 );
 ```
 
+### 18.  自定义表单控件。
+
+由于项目中联合查询的场景比较多，每个查询条件改变时都需要下发查询接口，每次写一大堆下拉框，input框相当耗时。<br />
+
+优化：采用Form接管这些查询框，通过onValuesChange直接抛出所有的查询条件。<br />
+
+常规的一些查询框可以直接使用antd的组件，把下拉框的数据获取等操作用组件封装起来。<br />
+
+组件的一些参数如下：<br />
+
+（1）dataSource参数，数组类型，每个查询条件是一个对象，包含如下字段：<br />
+
+dataIndex：查询字段名，Form.Item的name<br />
+
+type：input还是select还是treeSelect等等，可以自定义表单控件，来完成一些业务操作<br />
+
+还有查询组件的一些配置项，allowClear，maxLength，options，onChange等等直接透传给各个组件。<br />
+
+（2）onAllChange参数，当任何一个查询框发生改变时触发，抛出所有查询条件。<br />
+
+{dataIndex1: value1, dataIndex2: value2, ...}<br />
+
+![image](https://github.com/user-attachments/assets/d6b28a91-11a3-47ce-8e5f-a471d689dd71)
+
+
+原生antd组件可直接被form表单接管，但自定义表单控件如何通知form表单，它的值被修改了呢？<br />
+
+被设置了name属性的Form.Item包装的控件，表单控件会自动添加value和onChange，数据同步将被Form接管。<br />
+
+自定义控件只需要接收到value后给内部赋值，之后如果用户改变了值，自定义控件需要将改变后的值，<br />
+
+当作参数触发onChange回调以通知表单。<br />
+
+此时表单就收集到自定义控件的value发生了变化，从而触发onValuesChange，同时会将收集到的value再传给自定义控件以便更新。<br />
+
+重要：自定义控件内部不要使用setState来维护value，只需要告知表单即可，表单通知控件更新value。<br />
+
+自定义控件应该注意以下几点：<br />
+
+（1）你不再需要也不应该用 onChange 来做数据收集同步（你可以使用 Form 的 onValuesChange），但还是可以继续监听 onChange 事件。<br />
+
+（2）你不能用控件的 value 或 defaultValue 等属性来设置表单域的值，默认值可以用 Form 里的 initialValues 来设置。注意 initialValues 不能被 setState 动态更新，你需要用 setFieldsValue 来更新。<br />
+
+（3）你不应该用 setState，可以使用 form.setFieldsValue 来动态改变表单值。<br />
+
+![image](https://github.com/user-attachments/assets/ac6d2c70-ea8a-4bde-a44e-7ce584c19a81)
+
+
+### 19. 自定义表单控件校验失败时，如何设置红框？
+
+原生antd组件有一些提供status参数，可以手动设置error或者warning，表单校验失败时，也可以自动红框。<br />
+但是自定义表单控件如何获取到校验结果呢？<br />
+Form.Item会自动给其包装的控件传值aria-invalid，如果校验失败，该值为一个字符串‘true’，此时控件可以根据这个值来设置error时的class。<br />
+![image](https://github.com/user-attachments/assets/ec4bcd11-b856-426f-a153-4004c1a4c1a6)
+
+如果校验成功，Form.Item就不给包装组件传这个值了。<br />
+​
+![image](https://github.com/user-attachments/assets/9d27655d-e7f9-4680-afb3-e884d786d5f5)
+
 
 
 
