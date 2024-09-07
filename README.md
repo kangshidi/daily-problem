@@ -252,7 +252,8 @@ type：input还是select还是treeSelect等等，可以自定义表单控件，�
 假如No18中的查询框存在默认值，并且这个默认值还是异步获取到的，应该如何去给各个表单控件回填默认值呢？<br />
 误区：每个表单控件追加入参defaultValue，组件内部去监听defaultValue的变化，然后自行通过setState赋值给value。<br />
 正确方式：<br />
-每个表单控件的defaultValue应当是一次性的（antd原生组件都是如此），不需要监听变化。只有value是受控属性，表单控件内部也不去使用setState来维护value，由Form接管，Form会自动给表单控件传value用来更新。<br />
+每个表单控件的defaultValue应当是一次性的（antd原生组件都是如此），不需要监听变化。<br />
+**只有value是受控属性，表单控件内部也不去使用setState来维护value，通过onChange通知Form接管，Form会自动给表单控件传value用来更新。** <br />
 **通过Form的setFieldsValue来动态改变每个组件的回填值。**
 
 
