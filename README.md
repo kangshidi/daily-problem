@@ -236,7 +236,7 @@ type：input还是select还是treeSelect等等，可以自定义表单控件，�
 
 **此时表单就收集到自定义控件的value发生了变化，从而触发onValuesChange，同时会将收集到的value再传给自定义控件以便更新。** <br />
 
-重要：**自定义控件内部不要使用setState来维护value，只需要告知表单即可，表单通知控件更新value即可。** <br />
+重要：**自定义控件内部不要使用setState来维护value，只需要告知表单即可，表单来通知控件更新value。** <br />
 
 自定义控件应该注意以下几点：<br />
 
