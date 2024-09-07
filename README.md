@@ -221,7 +221,7 @@ type：input还是select还是treeSelect等等，可以自定义表单控件，�
 
 还有查询组件的一些配置项，allowClear，maxLength，options，onChange等等**直接透传给各个组件。** <br />
 
-（2）onAllChange参数，当任何一个查询框发生改变时触发，抛出所有查询条件。<br />
+（2）onAllChange参数，当任何一个查询框发生改变时触发，抛出所有查询条件(**在onValuesChange回调函数中获取allValues**)。<br />
 
 {dataIndex1: value1, dataIndex2: value2, ...}<br />
 
