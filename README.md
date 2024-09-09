@@ -323,6 +323,7 @@ PS：为什么z-index设置无效？<br />
 7. 元素有 isolation 值且值为 isolate.
 8. 元素有 mix-blend-mode 值且值不为 normal.
 9. 元素有 -webkit-overflow-scrolling 值且值为 touch.
+  <br />
 还有少数几种冷门的情况
 
 
