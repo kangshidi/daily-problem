@@ -292,7 +292,7 @@ PS：为什么z-index设置无效？<br />
 <br />
 
 以下几种元素可以产生层叠上下文，z-index的值才有效：
-<img width="623" alt="image" src="https://github.com/user-attachments/assets/dafc93b0-6fa8-4619-a91c-e615ace95de1">
+![image](https://github.com/user-attachments/assets/9be4b6ea-b406-4007-a4de-11a724596d78)
 
 参考文献：https://zhuanlan.zhihu.com/p/340371083
 
