@@ -268,7 +268,33 @@ type：input还是select还是treeSelect等等，可以自定义表单控件，�
 ​
 ![image](https://github.com/user-attachments/assets/9d27655d-e7f9-4680-afb3-e884d786d5f5)
 
+### 21. 框架布局整改。
+修改前的布局：浏览器顶部固定展示菜单栏，剩下的内容区域高度auto，超过浏览器的高度后内容区域右侧出现纵向滚动条。<br />
+项目中有很多写死的高度，以及一些calc的计算，也是写死的，页面很多模块都使用fixed定位，非常不好维护。<br />
+修改后的布局：浏览器顶部固定展示菜单，底部固定展示实时滚动新闻，中间为路由页面的内容区域，内容区页面超长的话，只有中间部分的右侧出现滚动条。<br />
+顶部菜单和底部新闻采用固定高度和fixed定位，除此之外的其他各页面模块如果需要固定使用absolute定位，方便维护。<br />
+微服务嵌入的页面高度设置为height: 100%。<br />
 
+难点：
+1. z-index的设置。<br />
+（1）由于内容区域有全屏展示的功能，所以内容区域的z-index需要高于顶部菜单和底部新闻。<br />
+（2）由于工具箱需要展示在任何页面的最上方，所以要高于内容区域的z-index的设置。<br />
+（3）由于antd的message组件的z-index为1010，所以内容区域的z-index需要小于antd-message的z-index。<br />
+（4）由于antd的modal组件z-index为1000，所以内容区域的z-index需要小于antd-modal-mask的z-index。<br />
+2. 高度自适应。<br />
+采用flex布局，flex-direction设置为column，高度设置为100%，overflow设置为hidden。<br />
+其第一个child高度为auto，第二个高度设置为100%，overflow设置为auto（自动撑满整个父节点，高度超出时出现纵向滚动条）。<br />
+
+PS：为什么z-index设置无效？<br />
+（1）需要建立层叠上下文，同一个层叠上下文中的z-index大的值会盖在小的上面。<br />
+（2）同一个层叠上下文中的相同z-index节点，后来者居上。<br />
+（3）嵌套的层叠上下文，比如z-index为2的节点下面存在一个z-index为99的节点的节点，永远不会盖在跟z-index为2的节点是同一个层叠上下文的z-index为3的节点上方。<br />
+<br />
+
+以下几种元素可以产生层叠上下文，z-index的值才有效：
+<img width="623" alt="image" src="https://github.com/user-attachments/assets/dafc93b0-6fa8-4619-a91c-e615ace95de1">
+
+参考文献：https://zhuanlan.zhihu.com/p/340371083
 
 
 
