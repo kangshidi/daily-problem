@@ -286,10 +286,25 @@ type：input还是select还是treeSelect等等，可以自定义表单控件，�
 其第一个child高度为auto，第二个高度设置为100%，overflow设置为auto（自动撑满整个父节点，高度超出时出现纵向滚动条）。<br />
 
 PS：为什么z-index设置无效？<br />
-（1）需要建立层叠上下文，同一个层叠上下文中的z-index大的值会盖在小的上面。<br />
+（1）需要建立**层叠上下文(Stacking context)**，这样z-index才会生效。同一个层叠上下文中的z-index大的值会盖在小的上面。<br />
+（2）<html>为第一级层叠上下文。<br />
 （2）同一个层叠上下文中的相同z-index节点，后来者居上。<br />
 （3）嵌套的层叠上下文，比如z-index为2的节点下面存在一个z-index为99的节点的节点，永远不会盖在跟z-index为2的节点是同一个层叠上下文的z-index为3的节点上方。<br />
-<br />
+也就是说，**子层叠上下文的高度被限制在了父层叠上下文中**。<br />
+注意：一个元素所处的父层叠上下文是由内向外找到的第一个能产生层叠上下文的元素所产生的层叠上下文。<br />
+```html
+<div id="div1" style="position: relative; z-index: 1">
+    <div id="div2" style="position: relative; z-index: 1">
+        所处的父层叠上下文是 div1 产生的层叠上下文
+    </div>
+
+    <div id="div3">
+        <div id="div4" style="position: relative; z-index: 2">
+            所处的父层叠上下文也是 div1 产生的层叠上下文
+        </div>
+    </div>
+</div>
+```
 
 以下几种元素可以产生层叠上下文，z-index的值才有效：
 ![image](https://github.com/user-attachments/assets/9be4b6ea-b406-4007-a4de-11a724596d78)
