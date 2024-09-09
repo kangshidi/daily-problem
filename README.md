@@ -294,6 +294,23 @@ PS：为什么z-index设置无效？<br />
 以下几种元素可以产生层叠上下文，z-index的值才有效：
 ![image](https://github.com/user-attachments/assets/9be4b6ea-b406-4007-a4de-11a724596d78)
 
+1. 元素的 position 值为 absolute 或 relative， 且 z-index 值不为 auto （默认值）.
+2. 元素的 position 值为 fixed 或 sticky
+3. 元素是 flexbox 容器的子元素， 且 z-index 值不为 auto （默认值）
+4. 元素是 grid 容器的子元素, 且 z-index 值不为 auto （默认值）
+5. 元素有 opacity 值且值小于 1.
+6. 元素有以下任意一项的值，且值不为 none :
+- transform
+- filter
+- perspective
+- clip-path
+- mask / mask-image / mask-border
+7. 元素有 isolation 值且值为 isolate.
+8. 元素有 mix-blend-mode 值且值不为 normal.
+9. 元素有 -webkit-overflow-scrolling 值且值为 touch.
+还有少数几种冷门的情况
+
+
 参考文献：https://zhuanlan.zhihu.com/p/340371083
 
 
