@@ -344,12 +344,15 @@ PS：为什么z-index设置无效？<br />
 为什么使用防抖？<br />
 当鼠标从一个菜单标题移动到另一个菜单标题时，如果立刻设置是否展示下拉框的变量的话，就会导致先收起下拉，再展开下拉，也就是闪屏。<br />
 如果**使用防抖，也就是设置变量之前先立刻取消上次的设置，然后延迟300ms更新变量，这样鼠标快速的从一个菜单移动到另一个菜单时，就不会收起下拉，300ms之后下拉框中的数据自动更新**。<br />
+![543da2c2d7cf53dae73347e704044bd](https://github.com/user-attachments/assets/1ed405ec-b401-4eed-867f-2dbcb415292e)
+![3d5cdcf401951f6daca19fa76757d30](https://github.com/user-attachments/assets/cb7b4373-ce35-4454-9abc-23c7e06c00f5)
 
 
 2. 采用`transition`来设置下拉菜单高度自适应的动画效果。但是**height属性为auto时，transition设置无效**，这就需要动态设置下拉框的高度。<br />
 页面中有一个跟下拉框完全一模一样的dom占位元素，唯一的区别就是visibility为hidden，transition为none。<br />
 项目中监听活动菜单变量值的变化，变化后获取占位元素的offsetHeight，然后将高度赋值给下拉框。<br />
 
+![f33ffe97d1e20078dd7fb75f5f5248c](https://github.com/user-attachments/assets/5ab0652d-0e77-48c0-ba60-c3356496b18c)
 
 
 
