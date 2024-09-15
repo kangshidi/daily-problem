@@ -277,7 +277,7 @@ https://ant-design.antgroup.com/components/form-cn#formitemusestatus
 修改前的布局：浏览器顶部固定展示菜单栏，剩下的内容区域高度auto，超过浏览器的高度后内容区域右侧出现纵向滚动条。<br />
 项目中有很多写死的高度，以及一些calc的计算，也是写死的，页面很多模块都使用fixed定位，非常不好维护。<br />
 修改后的布局：浏览器顶部固定展示菜单，底部固定展示实时滚动新闻，中间为路由页面的内容区域，内容区页面超长的话，只有中间部分的右侧出现滚动条。<br />
-顶部菜单和底部新闻采用固定高度和fixed定位，除此之外的其他各页面模块如果需要固定使用absolute定位，方便维护。<br />
+**顶部菜单和底部新闻采用固定高度和fixed定位，除此之外的其他各页面模块如果需要固定使用absolute定位**，方便维护。<br />
 微服务嵌入的页面高度设置为height: 100%。<br />
 
 难点：
@@ -287,8 +287,6 @@ https://ant-design.antgroup.com/components/form-cn#formitemusestatus
 （3）由于antd的message组件的z-index为1010，所以内容区域的z-index需要小于antd-message的z-index。<br />
 （4）由于antd的modal组件z-index为1000，所以内容区域的z-index需要小于antd-modal-mask的z-index。<br />
 2. 高度自适应。<br />
-采用flex布局，flex-direction设置为column，高度设置为100%，overflow设置为hidden。<br />
-其第一个child高度为auto，第二个高度设置为100%，overflow设置为auto（自动撑满整个父节点，高度超出时出现纵向滚动条）。<br />
 
 PS：为什么z-index设置无效？<br />
 （1）需要建立**层叠上下文(Stacking context)**，这样z-index才会生效。同一个层叠上下文中的z-index大的值会盖在小的上面。<br />
