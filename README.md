@@ -268,6 +268,7 @@ type：input还是select还是treeSelect等等，可以自定义表单控件，�
 如果校验成功，Form.Item就不给包装组件传这个值了。<br />
 ​
 ![image](https://github.com/user-attachments/assets/9d27655d-e7f9-4680-afb3-e884d786d5f5)
+<br />
 方案二：<br />
 **使用Form的hooks来实现**， `Form.Item.useStatus()`。参考文档：<br />
 https://ant-design.antgroup.com/components/form-cn#formitemusestatus
